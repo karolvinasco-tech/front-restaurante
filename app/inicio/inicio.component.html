@@ -1,0 +1,144 @@
+<div class="inicio-container">
+  <!-- CARRUSEL HERO -->
+  <section class="carrusel-hero">
+    <div class="slides-wrapper">
+      @for (slide of slides; track $index) {
+        <div class="slide" [class.activo]="$index === slideActual">
+          <img [src]="slide.imagen" [alt]="slide.titulo" class="slide-img" />
+          <div class="overlay"></div>
+          <div class="contenido-hero">
+            <h2 class="titulo-hero">{{ slide.titulo }}</h2>
+            <p class="subtitulo-hero">{{ slide.subtitulo }}</p>
+            <a [routerLink]="slide.link" class="btn-hero">{{ slide.textoBoton }}</a>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Botones de Navegación -->
+    <button class="btn-carrusel ant" (click)="anteriorSlide()" aria-label="Anterior">❮</button>
+    <button class="btn-carrusel sig" (click)="siguienteSlide()" aria-label="Siguiente">❯</button>
+
+    <!-- Indicadores (Puntos) -->
+    <div class="indicadores">
+      @for (slide of slides; track $index) {
+        <button 
+          class="indicador" 
+          [class.activo]="$index === slideActual"
+          (click)="irASlide($index)"
+          [attr.aria-label]="'Ir a diapositiva ' + ($index + 1)">
+        </button>
+      }
+    </div>
+  </section>
+
+  <!-- SECCIÓN DESTACADOS (PLATO Y BEBIDA ESTRELLA) -->
+  <section class="seccion-destacados">
+    @if (mensajeAgregado) {
+      <div class="alerta-exito">
+        {{ mensajeAgregado }}
+      </div>
+    }
+
+    <div class="grid-destacados">
+      <!-- Plato Estrella -->
+      <div class="tarjeta-destacada">
+        <h3 class="titulo-tarjeta">⭐ PLATO ESTRELLA ⭐</h3>
+        @if (cargandoPlato) {
+          <div class="cargando-box">⌛ Cargando sugerencia del chef...</div>
+        } @else if (platoEstrella) {
+          <div class="contenido-destacado">
+            <img [src]="platoEstrella.imagen" [alt]="platoEstrella.nombre" class="img-destacada" />
+            <div class="info-destacada">
+              <h4>{{ platoEstrella.nombre }}</h4>
+              <p class="precio">${{ platoEstrella.precio | number:'1.0-0' }}</p>
+              <p class="ingredientes"><strong>Ingredientes:</strong> {{ platoEstrella.ingredientes }}</p>
+              <button (click)="agregarComida(platoEstrella)" class="btn-agregar">
+                🛒 Agregar al Pedido
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Bebida Estrella -->
+      <div class="tarjeta-destacada">
+        <h3 class="titulo-tarjeta">🍹 BEBIDA ESTRELLA 🍹</h3>
+        @if (cargandoBebida) {
+          <div class="cargando-box">⌛ Cargando sugerencia del bar...</div>
+        } @else if (bebidaEstrella) {
+          <div class="contenido-destacado">
+            <img [src]="bebidaEstrella.imagen" [alt]="bebidaEstrella.nombre" class="img-destacada" />
+            <div class="info-destacada">
+              <h4>{{ bebidaEstrella.nombre }}</h4>
+              <p class="precio">${{ bebidaEstrella.precio | number:'1.0-0' }}</p>
+              <p class="ingredientes"><strong>Ingredientes:</strong> {{ bebidaEstrella.ingredientes }}</p>
+              <button (click)="agregarBebida(bebidaEstrella)" class="btn-agregar">
+                🛒 Agregar al Pedido
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN: NUESTRO ORIGEN -->
+  <section class="origen-section">
+    <div class="origen-card">
+      <div class="origen-texto">
+        <h2>🔥 El Origen de Nuestra Sazón</h2>
+        <p>
+          <strong>TODO PAISA</strong> nace del amor por la cocina de la abuela, del humo de la leña y de las recetas tradicionales con las que crecimos y que mejor conocemos.
+        </p>
+        <p>
+          Creemos que la comida no es solo alimento, es memoria. Por eso, nos dedicamos a rescatar esos sabores caseros y entrañables que nos vieron crecer, llevándolos de la cocina tradicional directamente a tu mesa, preparados con ingredientes frescos y el corazón colombiano.
+        </p>
+      </div>
+      <div class="origen-banner">
+        <div class="destacado-box">
+          <span>❤️</span>
+          <h3>Hecho en Casa</h3>
+          <p>Con el sazón único que nos vio crecer.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FRANJA INFERIOR / FOOTER CON CONTACTOS -->
+  <footer class="footer-franja">
+    <div class="footer-contenido">
+      
+      <!-- Mensaje de bienvenida -->
+      <div class="footer-bloque invitacion">
+        <h3>¡Los Esperamos! 💛</h3>
+        <p>
+          Ven y comparte en familia el auténtico sabor paisa. ¡Aquí siempre habrá una mesa lista y servida para ti!
+        </p>
+      </div>
+
+      <!-- Datos de contacto -->
+      <div class="footer-bloque contacto">
+        <h4>📞 Contacto</h4>
+        <p>📍 <strong>Dirección:</strong> ANSERMA, CALDAS
+        <p>📱 <strong>Teléfono / WhatsApp:</strong> +57 300 123 4567</p>
+        <p>✉️ <strong>Correo:</strong> contacto&#64;todopaisa.com</p>
+      </div>
+
+      <!-- Redes Sociales -->
+      <div class="footer-bloque redes">
+        <h4>📱 Síguenos</h4>
+        <div class="redes-iconos">
+          <a href="#" class="btn-red instagram">📸 Instagram</a>
+          <a href="#" class="btn-red facebook">📘 Facebook</a>
+          <a href="#" class="btn-red whatsapp">💬 WhatsApp</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-copyright">
+      <small>© 2026 TODO PAISA - Restaurante & Bar. Todos los derechos reservados.</small>
+    </div>
+  </footer>
+</div>

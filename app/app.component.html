@@ -1,0 +1,25 @@
+<header class="header">
+  <div class="logo-container">
+    <a routerLink="/" class="logo">
+      <h1>TODO PAISA</h1>
+      <span class="subtitulo">Restaurante</span>
+    </a>
+  </div>
+
+  <nav class="nav-links">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Inicio</a>
+    <a routerLink="/comidas" routerLinkActive="active">Comidas</a>
+    <a routerLink="/bebidas" routerLinkActive="active">Bebidas</a>
+    <a routerLink="/pedido" routerLinkActive="active" class="link-pedido">
+      Mi Pedido
+      @if (cantidadTotal > 0) {
+        <span class="badge-total">{{ cantidadTotal }}</span>
+      }
+    </a>
+    <a routerLink="/juego" routerLinkActive="active">Juego</a>
+  </nav>
+</header>
+
+<main class="main-content">
+  <router-outlet></router-outlet>
+</main>

@@ -1,0 +1,195 @@
+.juego-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+.header-seccion {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.header-seccion h2 {
+  font-size: clamp(1.4rem, 4vw, 2rem); /* Tamaño adaptativo de fuente */
+  color: #0F172A;
+  margin-bottom: 8px;
+}
+
+.header-seccion p {
+  font-size: clamp(0.85rem, 2.5vw, 1rem);
+  color: #475569;
+}
+
+/* MARCADOR RESPONSIVE */
+.panel-marcador {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* Para que en celular baje en filas */
+  gap: 12px;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  padding: 14px 18px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.objetivos-box {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.badge-obj {
+  background-color: #F1F5F9;
+  color: #475569;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.badge-obj.completado {
+  background-color: #DCFCE7;
+  color: #15803D;
+}
+
+.intento-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.numero-intentos {
+  background-color: #0F172A;
+  color: #FFFFFF;
+  padding: 4px 10px;
+  border-radius: 16px;
+}
+
+.numero-intentos.alerta {
+  background-color: #DC2626;
+}
+
+.btn-reiniciar {
+  background-color: #8B0000;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* MATRIZ 4x4 RESPONSIVE */
+.grid-matriz {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas fijas para la matriz */
+  gap: 10px;
+  width: 100%;
+}
+
+.carta-box {
+  width: 100%;
+  aspect-ratio: 3 / 4; /* Mantiene la proporción de la carta automáticamente */
+  cursor: pointer;
+  perspective: 1000px;
+}
+
+.carta-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+}
+
+.carta-box.revelada .carta-inner {
+  transform: rotateY(180deg);
+}
+
+.carta-reverso, .carta-frente {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  border: 1px solid #CBD5E1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4px;
+  box-sizing: border-radius;
+}
+
+.carta-reverso {
+  background-color: #0F172A;
+  color: #F43F5E;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+}
+
+.carta-frente {
+  background-color: #F1F5F9;
+  transform: rotateY(180deg);
+}
+
+.carta-box.es-ganadora .carta-frente {
+  background-color: #FFFFFF;
+  border: 2px solid #10B981;
+}
+
+.img-carta {
+  width: 100%;
+  height: 60%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.nombre-carta {
+  font-size: clamp(0.6rem, 1.8vw, 0.75rem);
+  font-weight: bold;
+  margin-top: 4px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.tag-tipo {
+  font-size: 0.6rem;
+  padding: 2px 4px;
+  border-radius: 6px;
+  background-color: #FEF3C7;
+  color: #D97706;
+  font-weight: bold;
+}
+
+.tag-tipo.bebida { background-color: #E0F2FE; color: #0369A1; }
+
+.icono-vacio { font-size: clamp(1.2rem, 4vw, 1.8rem); }
+.texto-vacio { font-size: clamp(0.65rem, 2vw, 0.8rem); color: #94A3B8; font-weight: bold; }
+
+/* MEDIA QUERIES PARA ADAPTAR EN PANTALLAS PEQUEÑAS */
+@media (max-width: 500px) {
+  .grid-matriz {
+    gap: 6px;
+  }
+  
+  .panel-marcador {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+  
+  .btn-reiniciar {
+    width: 100%;
+  }
+}

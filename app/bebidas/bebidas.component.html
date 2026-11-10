@@ -1,0 +1,112 @@
+<section class="bebidas-container">
+  <div class="header-seccion">
+    <h2>🍹 Menú de Bebidas & Coctelería</h2>
+    <p>Descubre nuestra selección de cocteles, licores y bebidas refrescantes</p>
+  </div>
+
+  @if (mensajeAgregado) {
+    <div class="alerta-exito">
+      {{ mensajeAgregado }}
+    </div>
+  }
+
+  <!-- Panel de Filtros Organizado en 2 Columnas -->
+  <div class="panel-filtros">
+    
+    <!-- 1. Búsqueda por Nombre -->
+    <div class="campo-filtro">
+      <label class="label-filtro">Buscar por Coctel</label>
+      <div class="input-con-boton">
+        <input
+          type="text"
+          [(ngModel)]="busquedaNombre"
+          (keyup.enter)="buscarPorNombre()"
+          placeholder="Ej: Margarita..."
+          class="input-busqueda"
+        />
+        <button (click)="buscarPorNombre()" class="btn-buscar">
+          🔍 Buscar
+        </button>
+      </div>
+    </div>
+
+    <!-- 2. Búsqueda por Ingrediente -->
+    <div class="campo-filtro">
+      <label class="label-filtro">Buscar por Ingrediente</label>
+      <div class="input-con-boton">
+        <input
+          type="text"
+          [(ngModel)]="busquedaIngrediente"
+          (keyup.enter)="buscarPorIngrediente()"
+          placeholder="Ej: Vodka..."
+          class="input-busqueda"
+        />
+        <button (click)="buscarPorIngrediente()" class="btn-buscar btn-ingrediente">
+          🧪 Buscar
+        </button>
+      </div>
+    </div>
+
+    <!-- 3. Tipo de bebida -->
+    <div class="campo-filtro">
+      <label class="label-filtro">Tipo de Bebida</label>
+      <select [(ngModel)]="tipoSeleccionado" (change)="filtrarPorTipo()" class="select-categoria">
+        <option value="todos">Todos los tipos</option>
+        <option value="Alcoholic">Con Alcohol</option>
+        <option value="Non_Alcoholic">Sin Alcohol</option>
+      </select>
+    </div>
+
+    <!-- 4. Categoría -->
+    <div class="campo-filtro">
+      <label class="label-filtro">Categoría</label>
+      <select [(ngModel)]="categoriaSeleccionada" (change)="filtrarPorCategoria()" class="select-categoria">
+        <option value="todas">Todas las categorías</option>
+        @for (cat of categoriasDisponibles; track cat) {
+          <option [value]="cat">{{ cat }}</option>
+        }
+      </select>
+    </div>
+
+    <!-- Botón Limpiar Centrado -->
+    <div class="contenedor-limpiar">
+      <button (click)="limpiarFiltros()" class="btn-limpiar">
+        🧹 Limpiar Filtros
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Vista de Carga y Grid de 4 Columnas -->
+  @if (cargando) {
+    <div class="cargando-box">
+      ⌛ Cargando las mejores bebidas desde TheCocktailDB...
+    </div>
+  } @else if (bebidasFiltradas.length === 0) {
+    <div class="sin-resultados">
+      ❌ No se encontraron bebidas con los criterios seleccionados.
+    </div>
+  } @else {
+    <div class="grid-bebidas">
+      @for (bebida of bebidasFiltradas; track bebida.id) {
+        <div class="tarjeta-bebida">
+          <img [src]="bebida.imagen" [alt]="bebida.nombre" class="img-bebida" />
+          <div class="info-bebida">
+            <div class="badges-box">
+              <span class="badge-categoria">{{ bebida.categoria }}</span>
+              <span class="badge-tipo" [ngClass]="{'con-alcohol': bebida.tipo === 'Con Alcohol'}">
+                {{ bebida.tipo }}
+              </span>
+            </div>
+            <h3 class="nombre-bebida">{{ bebida.nombre }}</h3>
+            <p class="precio-bebida">${{ bebida.precio | number:'1.0-0' }}</p>
+            <p class="ingredientes-bebida"><strong>Ingredientes:</strong> {{ bebida.ingredientes }}</p>
+            <button (click)="agregarAlPedido(bebida)" class="btn-agregar-carrito">
+              🛒 Agregar al Pedido
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</section>

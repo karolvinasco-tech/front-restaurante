@@ -1,0 +1,77 @@
+<section class="juego-container">
+  <div class="header-seccion">
+    <h2>🎮 Reto Paisa: Encuentra el Plato y la Bebida</h2>
+    <p>Encuentra la imagen del <strong>Plato</strong> y de la <strong>Bebida</strong> ocultos en la matriz 4x4. ¡Tienes 10 intentos!</p>
+  </div>
+
+  <div class="panel-marcador">
+    <div class="objetivos-box">
+      <span class="badge-obj" [class.completado]="comidaEncontrada">
+        {{ comidaEncontrada ? '✅' : '🍲' }} Plato: {{ comidaEncontrada ? comidaGanadora?.nombre : 'Oculto' }}
+      </span>
+      <span class="badge-obj" [class.completado]="bebidaEncontrada">
+        {{ bebidaEncontrada ? '✅' : '🍹' }} Bebida: {{ bebidaEncontrada ? bebidaGanadora?.nombre : 'Oculta' }}
+      </span>
+    </div>
+
+    <div class="intento-box">
+      <span>Intentos:</span>
+      <span class="numero-intentos" [class.alerta]="intentosRestantes <= 3">
+        {{ intentosRestantes }} / 10
+      </span>
+    </div>
+
+    <button (click)="iniciarJuego()" class="btn-reiniciar">
+      🔄 Nuevo Juego
+    </button>
+  </div>
+
+  @if (cargando) {
+    <div class="cargando-box">
+      ⌛ Ocultando el plato y la bebida en la matriz 4x4...
+    </div>
+  } @else {
+    @if (juegoTerminado) {
+      @if (victoria) {
+        <div class="mensaje-resultado victoria">
+          🎉 ¡FELICITACIONES! Encontraste el plato y la bebida. ¡Ganaste! 🏆
+        </div>
+      } @else {
+        <div class="mensaje-resultado derrota">
+          ❌ ¡Agotaste los 10 intentos! Toca "Nuevo Juego" para volver a intentarlo. 🔄
+        </div>
+      }
+    }
+
+    <!-- MATRIZ 4x4 (16 CASILLAS) -->
+    <div class="grid-matriz">
+      @for (c of casillas; track c.id) {
+        <div
+          class="carta-box"
+          [class.revelada]="c.revelada"
+          [class.es-ganadora]="c.esGanadora"
+          (click)="seleccionarCasilla(c)"
+        >
+          <div class="carta-inner">
+            <div class="carta-reverso">
+              <span>❓</span>
+            </div>
+
+            <div class="carta-frente">
+              @if (c.esGanadora) {
+                <img [src]="c.imagen" [alt]="c.nombre" class="img-carta" />
+                <span class="nombre-carta">{{ c.nombre }}</span>
+                <span class="tag-tipo" [class.bebida]="c.tipo === 'bebida'">
+                  {{ c.tipo === 'comida' ? '🍲 Plato' : '🍹 Bebida' }}
+                </span>
+              } @else {
+                <span class="icono-vacio">❌</span>
+                <span class="texto-vacio">¡Vacío!</span>
+              }
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</section>

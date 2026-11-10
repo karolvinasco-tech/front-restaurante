@@ -1,0 +1,98 @@
+<section class="comidas-container">
+  <div class="header-seccion">
+    <h2>🍲 Menú de Comidas Típicas</h2>
+    <p>Explora nuestras deliciosas opciones preparadas con el mejor sabor tradicional</p>
+  </div>
+
+  @if (mensajeAgregado) {
+    <div class="alerta-exito">
+      {{ mensajeAgregado }}
+    </div>
+  }
+
+  <!-- Panel de Filtros Organizado en 2 Columnas -->
+  <div class="panel-filtros">
+    
+    <!-- 1. Búsqueda por Nombre -->
+    <div class="campo-filtro">
+      <label class="label-filtro">Buscar por Nombre</label>
+      <div class="input-con-boton">
+        <input
+          type="text"
+          [(ngModel)]="busquedaNombre"
+          (keyup.enter)="buscarPorNombre()"
+          placeholder="Ej: Chicken, Beef..."
+          class="input-busqueda"
+        />
+        <button (click)="buscarPorNombre()" class="btn-buscar">
+          🔍 Buscar
+        </button>
+      </div>
+    </div>
+
+    <!-- 2. Búsqueda por Ingrediente -->
+    <div class="campo-filtro">
+      <label class="label-filtro">Buscar por Ingrediente</label>
+      <div class="input-con-boton">
+        <input
+          type="text"
+          [(ngModel)]="busquedaIngrediente"
+          (keyup.enter)="buscarPorIngrediente()"
+          placeholder="Ej: Rice, Garlic..."
+          class="input-busqueda"
+        />
+        <button (click)="buscarPorIngrediente()" class="btn-buscar btn-ingrediente">
+          🧪 Buscar
+        </button>
+      </div>
+    </div>
+
+    <!-- 3. Filtrar por Categoría -->
+    <div class="campo-filtro">
+      <label class="label-filtro">Categoría</label>
+      <select [(ngModel)]="categoriaSeleccionada" (change)="aplicarFiltroCategoria()" class="select-categoria">
+        <option value="todas">Todas las categorías</option>
+        @for (cat of categoriasDisponibles; track cat) {
+          <option [value]="cat">{{ cat }}</option>
+        }
+      </select>
+    </div>
+
+    <!-- 4. Botón Limpiar Filtros -->
+    <div class="campo-filtro contenedor-limpiar-inline">
+      <label class="label-filtro">&nbsp;</label>
+      <button (click)="limpiarFiltros()" class="btn-limpiar">
+        🧹 Limpiar Filtros
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Vista de Carga y Grid de 4 Columnas -->
+  @if (cargando) {
+    <div class="cargando-box">
+      ⌛ Cargando los mejores platos desde TheMealDB...
+    </div>
+  } @else if (comidasFiltradas.length === 0) {
+    <div class="sin-resultados">
+      ❌ No se encontraron platos con los criterios seleccionados.
+    </div>
+  } @else {
+    <div class="grid-comidas">
+      @for (comida of comidasFiltradas; track comida.id) {
+        <div class="tarjeta-comida">
+          <img [src]="comida.imagen" [alt]="comida.nombre" class="img-comida" />
+          <div class="info-comida">
+            <span class="badge-categoria">{{ comida.categoria }}</span>
+            <h3 class="nombre-comida">{{ comida.nombre }}</h3>
+            <p class="precio-comida">${{ comida.precio | number:'1.0-0' }}</p>
+            <p class="ingredientes-comida"><strong>Ingredientes:</strong> {{ comida.ingredientes }}</p>
+            <button (click)="agregarAlPedido(comida)" class="btn-agregar-carrito">
+              🛒 Agregar al Pedido
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</section>

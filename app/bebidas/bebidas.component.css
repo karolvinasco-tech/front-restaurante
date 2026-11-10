@@ -1,0 +1,273 @@
+.bebidas-container {
+  max-width: 1400px;
+  margin: 30px auto;
+  padding: 0 20px;
+  color: #333;
+}
+
+.header-seccion {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.header-seccion h2 {
+  font-size: 2rem;
+  color: #0F172A;
+  margin-bottom: 8px;
+}
+
+.alerta-exito {
+  background-color: #10B981;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* --- PANEL DE FILTROS TOTALMENTE ALINEADO --- */
+.panel-filtros {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px 24px;
+  background-color: #F8FAFC;
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+@media (max-width: 768px) {
+  .panel-filtros {
+    grid-template-columns: 1fr;
+  }
+}
+
+.campo-filtro {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.label-filtro {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.input-con-boton {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.input-busqueda {
+  flex: 1;
+  min-width: 0; /* Evita desbordamiento en CSS Grid */
+  padding: 10px 14px;
+  border: 1px solid #CBD5E1;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  background-color: #FFFFFF;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input-busqueda:focus {
+  border-color: #0F172A;
+}
+
+.select-categoria {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #CBD5E1;
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  font-size: 0.9rem;
+  cursor: pointer;
+  outline: none;
+}
+
+.btn-buscar {
+  background-color: #8B0000;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s;
+}
+
+.btn-buscar:hover {
+  background-color: #A52A2A;
+}
+
+.btn-ingrediente {
+  background-color: #0F172A;
+}
+
+.btn-ingrediente:hover {
+  background-color: #1E293B;
+}
+
+.contenedor-limpiar {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+.btn-limpiar {
+  background-color: #475569;
+  color: white;
+  border: none;
+  padding: 10px 28px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-limpiar:hover {
+  background-color: #334155;
+}
+
+/* --- GRID DE 4 COLUMNAS --- */
+.grid-bebidas {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 1200px) {
+  .grid-bebidas {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .grid-bebidas {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .grid-bebidas {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- TARJETAS --- */
+.tarjeta-bebida {
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tarjeta-bebida:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.img-bebida {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.info-bebida {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.badges-box {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.badge-categoria {
+  background-color: #E0F2FE;
+  color: #0369A1;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 12px;
+  text-transform: uppercase;
+}
+
+.badge-tipo {
+  background-color: #DCFCE7;
+  color: #15803D;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 12px;
+}
+
+.badge-tipo.con-alcohol {
+  background-color: #FEE2E2;
+  color: #B91C1C;
+}
+
+.nombre-bebida {
+  font-size: 1.1rem;
+  color: #0F172A;
+  margin: 0 0 8px 0;
+  font-weight: 700;
+}
+
+.precio-bebida {
+  font-size: 1.15rem;
+  color: #10B981;
+  font-weight: 800;
+  margin: 0 0 10px 0;
+}
+
+.ingredientes-bebida {
+  font-size: 0.85rem;
+  color: #64748B;
+  margin: 0 0 16px 0;
+  line-height: 1.4;
+  flex: 1;
+}
+
+.btn-agregar-carrito {
+  width: 100%;
+  padding: 10px;
+  background-color: #F59E0B;
+  color: #0F172A;
+  border: none;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-agregar-carrito:hover {
+  background-color: #D97706;
+  color: white;
+}
+
+.cargando-box, .sin-resultados {
+  text-align: center;
+  padding: 50px 0;
+  font-size: 1.1rem;
+  color: #64748B;
+}

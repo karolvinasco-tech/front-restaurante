@@ -1,0 +1,117 @@
+<section class="pedido-container">
+  <div class="header-seccion">
+    <h2>🛒 Mi Pedido & Facturación</h2>
+    <p>Revisa tus productos, ingresa tus datos de envío y descarga tu recibo</p>
+  </div>
+
+  @if (mensajeExito) {
+    <div class="alerta-exito">
+      {{ mensajeExito }}
+    </div>
+  }
+
+  <div class="layout-pedido">
+    
+    <!-- DATOS DEL CLIENTE -->
+    <div class="card-seccion cliente-card">
+      <h3>📋 Datos de Envío</h3>
+      <form class="form-cliente">
+        <div class="grupo-input">
+          <label for="nombre">Nombre Completo *</label>
+          <input
+            type="text"
+            id="nombre"
+            [(ngModel)]="cliente.nombre"
+            name="nombre"
+            placeholder="Ej: Juan Pérez"
+            required
+          />
+        </div>
+
+        <div class="grupo-input">
+          <label for="direccion">Dirección de Entrega *</label>
+          <input
+            type="text"
+            id="direccion"
+            [(ngModel)]="cliente.direccion"
+            name="direccion"
+            placeholder="Ej: Calle 10 # 45 - 20, Apto 301"
+            required
+          />
+        </div>
+
+        <div class="grupo-input">
+          <label for="telefono">Número de Teléfono / WhatsApp *</label>
+          <input
+            type="tel"
+            id="telefono"
+            [(ngModel)]="cliente.telefono"
+            name="telefono"
+            placeholder="Ej: 300 123 4567"
+            required
+          />
+        </div>
+      </form>
+    </div>
+
+    <!-- DETALLE DE PRODUCTOS -->
+    <div class="card-seccion resumen-card">
+      <h3>🍽️ Detalle del Pedido</h3>
+
+      @if (itemsPedido.length === 0) {
+        <div class="carrito-vacio">
+          <p>Tu carrito está vacío.</p>
+          <small>Agrega platos o bebidas desde el menú para proceder.</small>
+        </div>
+      } @else {
+        <div class="lista-items">
+          @for (item of itemsPedido; track item.id) {
+            <div class="item-fila">
+              <img [src]="item.imagen" [alt]="item.nombre" class="img-thumb" />
+              <div class="detalles-item">
+                <span class="nombre-item">{{ item.nombre }}</span>
+                <span class="precio-unit">$ {{ item.precio | number:'1.0-0' }}</span>
+              </div>
+              <div class="controles-cantidad">
+                <button (click)="cambiarCantidad(item, -1)" class="btn-cant">-</button>
+                <span class="cant">{{ item.cantidad || 1 }}</span>
+                <button (click)="cambiarCantidad(item, 1)" class="btn-cant">+</button>
+              </div>
+              <span class="subtotal-item">
+                $ {{ (item.precio * (item.cantidad || 1)) | number:'1.0-0' }}
+              </span>
+              <button (click)="eliminarItem(item)" class="btn-eliminar" title="Eliminar">
+                🗑️
+              </button>
+            </div>
+          }
+        </div>
+
+        <!-- TOTALES -->
+        <div class="desglose-totales">
+          <div class="fila-total">
+            <span>Subtotal:</span>
+            <strong>$ {{ subtotal | number:'1.0-0' }}</strong>
+          </div>
+          <div class="fila-total">
+            <span>Propina sugerida (10%):</span>
+            <strong>$ {{ propina | number:'1.0-0' }}</strong>
+          </div>
+          <div class="fila-total total-destacado">
+            <span>TOTAL A PAGAR:</span>
+            <strong>$ {{ total | number:'1.0-0' }}</strong>
+          </div>
+        </div>
+
+        <button
+          (click)="confirmarYDescargarPDF()"
+          [disabled]="!formularioValido()"
+          class="btn-confirmar-pdf"
+        >
+          📄 Confirmar Pedido y Descargar Recibo (PDF)
+        </button>
+      }
+    </div>
+
+  </div>
+</section>
